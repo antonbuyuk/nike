@@ -1,0 +1,25 @@
+// breakpoints
+$xs: 0;
+$sm: 375px;
+$md: 768px;
+$lg: 1024px;
+$xl: 1366px;
+
+// colors
+$white: #ffffff;
+$black: #000000;
+$black-hover: #777;
+$red: #fe030a;
+$gray: #f4f4f4;
+$gray_2: #dbdbdb;
+$gray_3: #999999;
+
+// size
+$contentWidth: 120rem;
+
+// anim
+$hoverAnim: all 0.1s cubic-bezier(0.22, 0.7, 0.21, 0.7);
+$cubicBezier_light: all 0.1s cubic-bezier(0.22, 0.7, 0.21, 0.7);
+
+// fonts
+$aeroport: "Aeroport", sans-serif;

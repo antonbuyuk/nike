@@ -1,0 +1,72 @@
+{
+    "menu": [
+        {
+            "link": {
+                "label": "Одежда",
+                "link": "#"
+            },
+            "submemu": [
+                {
+                    "label": "submemu 1",
+                    "link": "#"
+                },
+                {
+                    "label": "submemu 2",
+                    "link": "#"
+                },
+                {
+                    "label": "submemu 3",
+                    "link": "#"
+                }
+            ]
+        },
+        {
+            "link": {
+                "label": "Аксессуары",
+                "link": "#"
+            },
+            "submemu": [
+                {
+                    "label": "submemu 1",
+                    "link": "#"
+                },
+                {
+                    "label": "submemu 2",
+                    "link": "#"
+                },
+                {
+                    "label": "submemu 3",
+                    "link": "#"
+                }
+            ]
+        },
+        {
+            "link": {
+                "label": "Коллекции",
+                "link": "#"
+            },
+            "submemu": [
+                {
+                    "label": "Все коллекции",
+                    "link": "#"
+                },
+                {
+                    "label": "Air Max",
+                    "link": "#"
+                },
+                {
+                    "label": "Dry Fit",
+                    "link": "#"
+                },
+                {
+                    "label": "Free",
+                    "link": "#"
+                },
+                {
+                    "label": "Zoom",
+                    "link": "#"
+                }
+            ]
+        }
+    ]
+}

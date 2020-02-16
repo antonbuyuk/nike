@@ -1,0 +1,7 @@
+pipelines:
+  branches:
+    develop:
+      - step:
+          deployment: staging
+          script:
+          - ssh -T root@104.248.41.159 "cd ../home/front/; git reset --hard HEAD; git pull origin develop; yarn install; yarn build; pm2 delete all; yarn prod"

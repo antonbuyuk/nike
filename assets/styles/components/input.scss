@@ -1,0 +1,162 @@
+@import "../helpers/mixin";
+@import "../helpers/variables";
+
+.input {
+    .el-input {
+        &__inner {
+            background-color: $gray;
+            border-radius: 0.8rem;
+            border: 1px solid $gray;
+
+            &:focus {
+                border-color: $gray_2;
+            }
+        }
+    }
+}
+
+.input-number {
+    position: relative;
+
+    .el-input-number {
+        width: 100%;
+        max-width: 16rem;
+        height: 6.4rem;
+
+        @include below($md) {
+            height: 5.2rem;
+        }
+
+        &__decrease,
+        &__increase {
+            height: 100%;
+            background-color: transparent;
+            border: none;
+            top: 0;
+            bottom: 0;
+            color: $black;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            &:hover {
+                &:not(.is-disabled)
+                    ~ .el-input
+                    .el-input__inner:not(.is-disabled),
+                &:not(.is-disabled)
+                    ~ .el-input
+                    .el-input__inner:not(.is-disabled) {
+                    border-color: $gray;
+                }
+
+                i {
+                    color: $black-hover;
+                }
+            }
+
+            i {
+                font-weight: 700;
+                font-size: 1.4rem;
+                transition: $hoverAnim;
+            }
+        }
+
+        &__decrease {
+            border-radius: 0.8rem 0 0 0.8rem;
+        }
+
+        &__increase {
+            border-radius: 0 0.8rem 0.8rem 0;
+        }
+
+        .el-input {
+            height: 100%;
+
+            &__inner {
+                height: 100%;
+                background-color: $gray;
+                padding-left: 5rem;
+                padding-right: 5rem;
+                color: $black;
+                border-color: $gray;
+                border-radius: 0.8rem;
+                font-weight: 700;
+                font-size: 1.8rem;
+            }
+        }
+    }
+
+    &--small {
+        .el-input-number {
+            width: 100%;
+            max-width: 11rem;
+            height: 4rem;
+
+            &__decrease,
+            &__increase {
+                height: 100%;
+                background-color: transparent;
+                border: none;
+                top: 0;
+                bottom: 0;
+                color: $black;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                &:hover {
+                    &:not(.is-disabled)
+                        ~ .el-input
+                        .el-input__inner:not(.is-disabled),
+                    &:not(.is-disabled)
+                        ~ .el-input
+                        .el-input__inner:not(.is-disabled) {
+                        border-color: $gray;
+                    }
+
+                    i {
+                        color: $black-hover;
+                    }
+                }
+
+                i {
+                    font-weight: 700;
+                    font-size: 1.4rem;
+                    transition: $hoverAnim;
+                }
+            }
+
+            &__decrease {
+                border-radius: 0.8rem 0 0 0.8rem;
+            }
+
+            &__increase {
+                border-radius: 0 0.8rem 0.8rem 0;
+            }
+
+            .el-input {
+                height: 100%;
+
+                &__inner {
+                    height: 100%;
+                    background-color: $gray;
+                    padding-left: 3.5rem;
+                    padding-right: 3.5rem;
+                    color: $black;
+                    border-color: $gray;
+                    border-radius: 0.8rem;
+                    font-weight: 400;
+                    font-size: 1.6rem;
+                }
+            }
+        }
+    }
+
+    &__error {
+        position: absolute;
+        top: calc(100% + 0.25rem);
+        left: 0;
+        color: $red;
+        font-size: 1.4rem;
+    }
+}
