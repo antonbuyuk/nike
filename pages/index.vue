@@ -51,16 +51,15 @@
                     </div>
                 </div>
 
-                <LineRow :size="'large'" />
-                <Title :text="'Смотрите также'" :type="'h2'" />
-
-                <div class="row">
+                <LineRow v-if="catalog" :size="'large'" />
+                <Title v-if="catalog" :text="'Смотрите также'" :type="'h2'" />
+                <div v-if="catalog" class="row">
                     <div v-for="(card, i) in catalog" :key="i" class="catalog-list__card">
                         <ShopCard :image="card.image" :link="card.link" :title="card.title" :price="card.price" />
                     </div>
                 </div>
                 <LineRow :size="'large'" />
-                <ViewsHistory :title="'История просмотров'" :slider-cards="sliderCards" :buttons="true" />
+                <ViewsHistory v-if="sliderCards" :title="'История просмотров'" :slider-cards="sliderCards" :buttons="true" />
             </div>
         </div>
     </main>
@@ -68,6 +67,7 @@
 
 <script>
 import { mapState } from 'vuex';
+import config from '../nuxt.config';
 export default {
     components: {
         BreadCrumbs: () => import('../components/elements/BreadCrumbs'),
@@ -115,78 +115,6 @@ export default {
                 count: null
             },
 
-            catalog: [
-                {
-                    image: '/assets/images/img-2.jpg',
-                    link: '/',
-                    title: 'Свитшот Nike Fire On',
-                    price: {
-                        old: '3500 ₽',
-                        price: '2900 ₽'
-                    }
-                },
-                {
-                    image: '/assets/images/img-3.jpg',
-                    link: '/',
-                    title: 'Cвитшот Nike SVB',
-                    price: {
-                        price: '2900 ₽'
-                    }
-                }, {
-                    image: '/assets/images/img-4.jpg',
-                    link: '/',
-                    title: 'Пуловер Nike Pullover Hoodie Gold',
-                    price: {
-                        price: '2900 ₽'
-                    }
-                }
-            ],
-
-            sliderCards: [
-                {
-                    image: '/assets/images/img-2.jpg',
-                    link: '/',
-                    title: 'Свитшот Nike Fire On',
-                    price: {
-                        price: '2900 ₽'
-                    }
-                }, {
-                    image: '/assets/images/img-3.jpg',
-                    link: '/',
-                    title: 'Cвитшот Nike SVB',
-                    price: {
-                        old: '3500 ₽',
-                        price: '2900 ₽'
-                    }
-                }, {
-                    image: '/assets/images/img-4.jpg',
-                    link: '/',
-                    title: 'Пуловер Nike Pullover Hoodie Gold',
-                    price: {
-                        price: '2900 ₽'
-                    },
-                    panel: {
-                        type: 'sale',
-                        content: '-30%'
-                    }
-                }, {
-                    image: '/assets/images/img-4.jpg',
-                    link: '/',
-                    title: 'Пуловер Nike Pullover Hoodie Gold',
-                    price: {
-                        old: '3500 ₽',
-                        price: '2900 ₽'
-                    }
-                }, {
-                    image: '/assets/images/img-4.jpg',
-                    link: '/',
-                    title: 'Пуловер Nike Pullover Hoodie Gold',
-                    price: {
-                        price: '2900 ₽'
-                    }
-                }
-            ],
-
             errors: {
                 size: null,
                 color: null,
@@ -196,11 +124,16 @@ export default {
     },
 
     computed: {
-        ...mapState('Main', ['name', 'isEmpty', 'gallery', 'panel', 'price', 'sizes', 'colors', 'content', 'quantity']),
+        ...mapState('Main', ['name', 'isEmpty', 'gallery', 'panel', 'price', 'sizes', 'colors', 'content', 'quantity', 'sliderCards', 'catalog']),
         ...mapState('Basket', ['basketItems'])
     },
 
-    fetch ({ app, store, route }) {
+    async fetch ({ app, store, route }) {
+        await store.dispatch('Main/getData', { url: `${config.env.CLIENT_URL}/data/list.json` }).then((data) => {
+            store.commit('Main/setData', { label: 'sliderCards', data: data.sliderCards });
+            store.commit('Main/setData', { label: 'catalog', data: data.catalog });
+        });
+
         store.commit('Main/setBreadCrumbs', [
             { name: 'Одежда', path: '/' },
             { name: 'Худи и свитшоты', path: '/' },

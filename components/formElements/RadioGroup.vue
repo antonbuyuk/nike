@@ -107,6 +107,11 @@ export default {
                 font-weight: 700;
                 padding: 1.45rem 2rem;
                 box-shadow: none;
+                transition: $hoverAnim;
+
+                &:hover {
+                    border-color: $black;
+                }
             }
 
             &.is-active {

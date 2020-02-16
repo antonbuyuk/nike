@@ -5,7 +5,6 @@ import Main from './modules/main';
 import Header from './modules/header';
 import Footer from './modules/footer';
 import Basket from './modules/basket';
-import Init from './modules/init';
 
 export const strict = true;
 
@@ -13,8 +12,7 @@ export const modules = {
     Main,
     Header,
     Footer,
-    Basket,
-    Init
+    Basket
 };
 
 export const actions = {

@@ -1,0 +1,77 @@
+{
+    "sliderCards": [
+        {
+            "image": "/assets/images/img-2.jpg",
+            "link": "/",
+            "title": "Свитшот Nike Fire On",
+            "price": {
+                "price": "2900 ₽"
+            }
+        },
+        {
+            "image": "/assets/images/img-3.jpg",
+            "link": "/",
+            "title": "Cвитшот Nike SVB",
+            "price": {
+                "old": "3500 ₽",
+                "price": "2900 ₽"
+            }
+        },
+        {
+            "image": "/assets/images/img-4.jpg",
+            "link": "/",
+            "title": "Пуловер Nike Pullover Hoodie Gold",
+            "price": {
+                "price": "2900 ₽"
+            },
+            "panel": {
+                "type": "sale",
+                "content": "-30%"
+            }
+        },
+        {
+            "image": "/assets/images/img-4.jpg",
+            "link": "/",
+            "title": "Пуловер Nike Pullover Hoodie Gold",
+            "price": {
+                "old": "3500 ₽",
+                "price": "2900 ₽"
+            }
+        },
+        {
+            "image": "/assets/images/img-4.jpg",
+            "link": "/",
+            "title": "Пуловер Nike Pullover Hoodie Gold",
+            "price": {
+                "price": "2900 ₽"
+            }
+        }
+    ],
+    "catalog": [
+        {
+            "image": "/assets/images/img-2.jpg",
+            "link": "/",
+            "title": "Свитшот Nike Fire On",
+            "price": {
+                "old": "3500 ₽",
+                "price": "2900 ₽"
+            }
+        },
+        {
+            "image": "/assets/images/img-3.jpg",
+            "link": "/",
+            "title": "Cвитшот Nike SVB",
+            "price": {
+                "price": "2900 ₽"
+            }
+        },
+        {
+            "image": "/assets/images/img-4.jpg",
+            "link": "/",
+            "title": "Пуловер Nike Pullover Hoodie Gold",
+            "price": {
+                "price": "2900 ₽"
+            }
+        }
+    ]
+}
