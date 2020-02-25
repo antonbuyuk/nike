@@ -67,26 +67,10 @@ export default {
         Button: () => import('../elements/Button')
     },
 
-    data () {
-        return {
-            shopCards: [
-                {
-                    image: '/assets/images/img-2.jpg',
-                    title: 'Свитшот Nike Fire On',
-                    color: 'Чёрный',
-                    size: 'L',
-                    price: {
-                        price: 2900,
-                        currency: '₽'
-                    }
-                }
-            ]
-        };
-    },
-
     computed: {
         basketItems () {
-            return JSON.parse(JSON.stringify(this.$store.state.Basket.basketItems));
+            if (this.$store.state.Basket.basketItems) return JSON.parse(JSON.stringify(this.$store.state.Basket.basketItems));
+            return [];
         },
 
         resultPrice () {
