@@ -4,22 +4,25 @@
             <div class="card">
                 <div class="row">
                     <div class="card-gallery">
-                        <Slider
-                            ref="swiperThumbs"
-                            :slider-ref="'swiperThumbs'"
-                            :options="swiperOptionThumbs"
-                            :custom-class="'slider-thumbs'"
-                            :sliders="gallery"
-                        />
-                        <Slider
-                            ref="swiperTop"
-                            :slider-ref="'swiperTop'"
-                            :options="swiperOptionTop"
-                            :custom-class="'slider-main'"
-                            :sliders="gallery"
-                            :buttons="true"
-                            :panel="true"
-                        />
+                        <client-only>
+                            <Slider
+                                ref="swiperThumbs"
+                                :slider-ref="'swiperThumbs'"
+                                :options="swiperOptionThumbs"
+                                :custom-class="'slider-thumbs'"
+                                :sliders="gallery"
+                            />
+
+                            <Slider
+                                ref="swiperTop"
+                                :slider-ref="'swiperTop'"
+                                :options="swiperOptionTop"
+                                :custom-class="'slider-main'"
+                                :sliders="gallery"
+                                :buttons="true"
+                                :panel="true"
+                            />
+                        </client-only>
                         <div class="card-gallery__panel">
                             <Panel v-if="panel" :panel-type="panel.type" :content="panel.content" />
                         </div>
@@ -50,7 +53,6 @@
                         <TextBlock :content="content" />
                     </div>
                 </div>
-
                 <LineRow v-if="catalog" :size="'large'" />
                 <Title v-if="catalog" :text="'Смотрите также'" :type="'h2'" />
                 <div v-if="catalog" class="row">
@@ -153,7 +155,7 @@ export default {
                     swiperThumbs.controller.control = swiperTop;
                 });
             }
-        }, 1);
+        }, 500);
     },
 
     methods: {
@@ -164,16 +166,15 @@ export default {
 
             for (const element in this.errors) {
                 const item = this.errors[element];
-                if (!item) {
-                    return true;
-                } else {
-                    return false;
-                }
+                if (!item) return true;
+                else return false;
             }
         },
 
         checkProperty (property, errorText) {
-            this.properties[property] === null || this.properties[property] === 0 ? this.errors[property] = errorText : this.errors[property] = null;
+            this.properties[property] === null || this.properties[property] === 0
+                ? this.errors[property] = errorText
+                : this.errors[property] = null;
         },
 
         addBasket () {
@@ -183,9 +184,8 @@ export default {
                 const cookiesBasket = this.$cookies.get('basket');
                 const data = cookiesBasket || [];
 
-                const id = Math.floor(Math.random() * Math.floor(20));
                 const title = this.name;
-                const properties = { ...this.properties };
+                const properties = { ...this.properties, panel: this.panel };
                 const price = this.price;
                 const quantity = this.quantity;
                 const image = this.gallery[0].url;
@@ -194,7 +194,6 @@ export default {
 
                 if (data.length) {
                     item = {
-                        id,
                         title,
                         price,
                         image,
@@ -203,7 +202,7 @@ export default {
                     };
 
                     data.forEach((element, idx) => {
-                        if (element.id === id) {
+                        if (element.size === properties.size && element.color === properties.color) {
                             const count = properties.count + element.count;
                             count > this.quantity ? item.count = this.quantity : item.count = count;
                             cookiesBasket.splice(idx, 1);
@@ -211,7 +210,6 @@ export default {
                     });
                 } else {
                     item = {
-                        id,
                         title,
                         price,
                         image,
@@ -290,10 +288,6 @@ export default {
             display: flex;
             align-items: center;
 
-            @include below($md) {
-                justify-content: space-between;
-            }
-
             &:not(:last-child) {
                 margin-bottom: 4rem;
             }
@@ -302,7 +296,7 @@ export default {
                 margin-right: 1.6rem;
 
                 @include below($md) {
-                    margin-right: 0;
+                    margin-right: 1.5rem;
                 }
             }
         }

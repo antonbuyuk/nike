@@ -11,28 +11,33 @@
                 <Title :text="'Твоя корзина'" :type="'h2'" />
             </div>
             <div v-if="basketItems.length" class="basket__content">
-                <el-scrollbar v-if="basketItems.length > 5">
+                <el-scrollbar v-if="basketItems.length > 3 || isMobile">
                     <div v-for="(card, i) in basketItems" :key="i" class="basket__item">
                         <BascketCard
-                            :id="card.id"
                             :image="card.image"
                             :title="card.title"
                             :price="card.price"
+                            :panel="card.panel"
                             :size="card.size"
-                            :state-count.sync="count"
+                            :color="card.color"
+                            :quantity="card.quantity"
+                            :state-count.sync="card.count"
+                            :props-handle-change="(value) => changeCount(card, value)"
                         />
                     </div>
                 </el-scrollbar>
                 <template v-else>
                     <div v-for="(card, i) in basketItems" :key="i" class="basket__item">
                         <BascketCard
-                            :id="card.id"
                             :image="card.image"
                             :title="card.title"
                             :price="card.price"
+                            :panel="card.panel"
                             :size="card.size"
+                            :color="card.color"
                             :quantity="card.quantity"
                             :state-count.sync="card.count"
+                            :props-handle-change="(value) => changeCount(card, value)"
                         />
                     </div>
                 </template>
@@ -58,6 +63,7 @@
 </template>
 
 <script>
+import { mobile } from '~/mixin/mobile';
 export default {
     middleware: ['isBasket'],
 
@@ -66,6 +72,8 @@ export default {
         Title: () => import('../elements/Title'),
         Button: () => import('../elements/Button')
     },
+
+    mixins: [mobile],
 
     computed: {
         basketItems () {
@@ -76,6 +84,7 @@ export default {
         resultPrice () {
             if (this.basketItems) {
                 let summ = 0;
+
                 this.basketItems.forEach((element) => {
                     const elSumm = element.count * element.price.price;
 
@@ -89,13 +98,8 @@ export default {
         },
 
         basketDialog: {
-            get () {
-                return this.$store.state.Basket.basketDialog;
-            },
-
-            set (value) {
-                this.$store.commit('Basket/setData', { label: 'basketDialog', data: value });
-            }
+            get () { return this.$store.state.Basket.basketDialog; },
+            set (value) { this.$store.commit('Basket/setData', { label: 'basketDialog', data: value }); }
         }
     },
 
@@ -108,6 +112,24 @@ export default {
             if (this.$device.isDesktop) {
 
             }
+        },
+
+        changeCount (card, value) {
+            const basket = JSON.parse(JSON.stringify(this.basketItems));
+
+            basket.forEach((element, idx) => {
+                if (element.count <= element.quantity && element.color === card.color && element.size === card.size) {
+                    element.count = value;
+                }
+
+                if (element.count === 0) basket.splice(idx, 1);
+            });
+
+            this.$store.commit('Basket/setData', { label: 'basketItems', data: basket });
+            this.$cookies.set('basket', basket, {
+                path: '/',
+                maxAge: 60 * 60 * 24 * 7
+            });
         }
     }
 };
@@ -130,6 +152,10 @@ export default {
                 width: 50%;
             }
 
+            @include below(500px) {
+                max-width: 31rem;
+            }
+
         &__wrapper {
             height: 100%;
         }
@@ -144,7 +170,12 @@ export default {
             right: 2.5rem;
             width: 4rem;
             height: 4rem;
-            z-index: 2;
+            z-index: 3;
+
+            @include below(500px) {
+                top: 1.5rem;
+                right: 1rem;
+            }
 
             &:hover {
 
@@ -161,15 +192,30 @@ export default {
         }
 
         &__body {
+            position: relative;
             display: flex;
             flex-direction: column;
             height: 100%;
-            padding: 4rem;
+            padding: 4rem 2rem 4rem 4rem;
+
+            @include below(500px) {
+                padding: 2rem 1rem 2rem 2rem;
+            }
         }
     }
 
     &__title {
-        margin-bottom: 5rem;
+        background: linear-gradient(180deg, #FFFFFF 83.85%, rgba(255, 255, 255, 0) 100%);
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        padding: 4rem;
+        z-index: 2;
+
+        @include below(500px) {
+            padding: 2rem;
+        }
 
         .title  {
             margin-bottom: 0;
@@ -177,6 +223,7 @@ export default {
     }
 
     &__content {
+        padding-top: 5rem;
         overflow: hidden;
 
         .el-scrollbar {
@@ -189,15 +236,32 @@ export default {
     }
 
     &__item {
+        padding: 4rem 0;
+        padding-right: 2rem;
+
+        &:first-child {
+            padding-top: 0;
+            margin-top: 2rem;
+        }
 
         &:not(:last-child) {
-            margin-bottom: 2rem;
+            border-bottom: 1px solid $gray_4;
+        }
+
+        @include below($md) {
+            padding-right: 2rem;
+        }
+
+        @include below(500px) {
+            padding: 2rem 0;
+            padding-right: 1rem;
         }
     }
 
     &__footer {
         margin-top: auto;
         padding-top: 2rem;
+        padding-right: 2rem;
 
         .button {
             width: 100%;
@@ -210,11 +274,20 @@ export default {
         justify-content: space-between;
         margin-bottom: 3.2rem;
 
+        @include below($md) {
+            margin-bottom: 1.8rem;
+        }
+
         &__text {
             color: $black;
             font-weight: 700;
             font-size: 2rem;
             line-height: 2.4rem;
+
+            @include below($md) {
+                font-size: 1.4rem;
+                line-height: 120%;
+            }
         }
     }
 

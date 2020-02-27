@@ -7,19 +7,20 @@
                 <div slot="button-next" class="slider-cards__button slider-cards__button--next swiper-button-next" />
             </div>
         </div>
-
-        <swiper ref="swiperCars" :options="swiperCards" class="slider-cards">
-            <swiper-slide v-for="(card, i) in sliderCards" :key="i" class="slider-cards__slide">
-                <ShopCard
-                    :card-size="'small'"
-                    :image="card.image"
-                    :link="card.link"
-                    :title="card.title"
-                    :price="card.price"
-                    :panel="card.panel"
-                />
-            </swiper-slide>
-        </swiper>
+        <client-only>
+            <swiper ref="swiperCars" :options="swiperCards" class="slider-cards">
+                <swiper-slide v-for="(card, i) in sliderCards" :key="i" class="slider-cards__slide">
+                    <ShopCard
+                        :card-size="'small'"
+                        :image="card.image"
+                        :link="card.link"
+                        :title="card.title"
+                        :price="card.price"
+                        :panel="card.panel"
+                    />
+                </swiper-slide>
+            </swiper>
+        </client-only>
     </div>
 </template>
 

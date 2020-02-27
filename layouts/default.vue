@@ -1,6 +1,8 @@
 <template>
     <div class="app">
-        <Header />
+        <client-only>
+            <Header />
+        </client-only>
         <nuxt />
         <Footer />
         <Dialogs />

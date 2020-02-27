@@ -56,6 +56,12 @@ export default {
                 color: $gray_3;
             }
         }
+
+        &:last-child {
+            .el-breadcrumb__inner {
+                color: $gray_3
+            }
+        }
     }
 }
 </style>

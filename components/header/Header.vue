@@ -13,14 +13,10 @@
 
         <div class="header__btns">
             <div class="header__btns-item">
-                <transition name="el-fade-in-linear">
-                    <Search :show="showSearch" />
-                </transition>
                 <IconButton
                     :icon="'search'"
                     :width-icon="'4rem'"
                     :height-icon="'4rem'"
-                    :props-handle-click="showSearchFunc"
                 />
             </div>
             <div class="header__btns-item">
@@ -50,8 +46,7 @@ export default {
         Burger: () => import('./Burger'),
         Logo: () => import('../blocks/Logo'),
         Menu: () => import('./Menu'),
-        IconButton: () => import('../elements/IconButton'),
-        Search: () => import('../elements/Search')
+        IconButton: () => import('../elements/IconButton')
     },
 
     mixins: [mobile],
@@ -72,10 +67,6 @@ export default {
     },
 
     methods: {
-        showSearchFunc () {
-            this.showSearch = !this.showSearch;
-        },
-
         handlerOpenBasketDialog () {
             this.$store.commit('Basket/setData', { label: 'basketDialog', data: true });
         }

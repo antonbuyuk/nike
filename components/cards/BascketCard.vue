@@ -11,30 +11,48 @@
             <div class="basket-card__size">
                 {{ size }}
             </div>
-            <div class="basket-card__footer">
+            <div v-if="!isSmallMobile" class="basket-card__footer">
                 <InputNumber :size="'small'" :props-value.sync="count" :max-value="quantity" :props-handle-change="handleChange" />
                 <div class="basket-card__price">
-                    {{ price.price }} {{ price.currency }}
+                    <Panel v-if="panel" :panel-type="panel.type" :content="panel.content" />
+                    <div class="basket-card__price-old">
+                        {{ price.old }} {{ price.currency }}
+                    </div>
+                    <div class="basket-card__price-new">
+                        {{ price.price }} {{ price.currency }}
+                    </div>
                 </div>
             </div>
             <button class="basket-card__remove" @click="removeElement">
                 <i class="el-icon el-icon-close" />
             </button>
         </div>
+        <div v-if="isSmallMobile" class="basket-card__footer">
+            <InputNumber :size="'small'" :props-value.sync="count" :max-value="quantity" :props-handle-change="handleChange" />
+            <div class="basket-card__price">
+                <Panel v-if="panel" :panel-type="panel.type" :content="panel.content" />
+                <div class="basket-card__price-old">
+                    {{ price.old }} {{ price.currency }}
+                </div>
+                <div class="basket-card__price-new">
+                    {{ price.price }} {{ price.currency }}
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
 <script>
+import { mobile } from '~/mixin/mobile';
 export default {
     components: {
-        InputNumber: () => import('../formElements/InputNumber')
+        InputNumber: () => import('../formElements/InputNumber'),
+        Panel: () => import('../elements/Panel')
     },
 
+    mixins: [mobile],
+
     props: {
-        id: {
-            type: Number,
-            default: null
-        },
         image: {
             type: String,
             default: null
@@ -47,7 +65,15 @@ export default {
             type: String,
             default: null
         },
+        color: {
+            type: String,
+            default: null
+        },
         price: {
+            type: Object,
+            default: null
+        },
+        panel: {
             type: Object,
             default: null
         },
@@ -65,19 +91,21 @@ export default {
         }
     },
 
-    data () {
-        return {
-            count: this.stateCount
-        };
+    computed: {
+        count: {
+            get () { return this.stateCount; },
+            set (val) { this.$emit('update:stateCount', val); }
+        }
     },
 
     methods: {
         removeElement () {
-            const id = this.id;
+            const size = this.size;
+            const color = this.color;
             const cookiesBasket = this.$cookies.get('basket');
 
             cookiesBasket.forEach((element, idx) => {
-                if (element.id === id) {
+                if (element.size === size && element.color === color) {
                     cookiesBasket.splice(idx, 1);
                 }
             });
@@ -108,6 +136,10 @@ export default {
     position: relative;
     display: flex;
 
+    @include below(500px) {
+        flex-wrap: wrap;
+    }
+
     &__image {
         position: relative;
         width: 100%;
@@ -134,6 +166,10 @@ export default {
         width: 100%;
         display: flex;
         flex-direction: column;
+
+        @include below(500px) {
+            width: calc(100% - 7.5rem - 2.5rem);
+        }
     }
 
     &__remove {
@@ -181,6 +217,11 @@ export default {
         justify-content: space-between;
         width: 100%;
         margin-top: auto;
+
+        @include below(500px) {
+            margin-top: 2rem;
+            position: relative;
+        }
     }
 
     &__price {
@@ -189,6 +230,26 @@ export default {
         font-weight: 700;
         line-height: 2.1rem;
         text-align: left;
+        display: flex;
+        align-items: center;
+
+        &-old {
+            margin-right: 1.25rem;
+            color: $gray_3;
+            text-decoration: line-through;
+        }
+
+        .panel  {
+            margin-right: 2rem;
+
+            @include below(500px) {
+                position: absolute;
+                right: 0;
+                top: 0;
+                transform: translateY(-100%);
+                margin-right: 0;
+            }
+        }
     }
 
     &__size {
