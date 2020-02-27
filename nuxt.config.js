@@ -1,12 +1,12 @@
 module.exports = {
     mode: 'universal',
     server: {
-        port: 80,
+        port: 8001,
         host: process.env.NODE_ENV !== 'production' ? 'localhost' : '0.0.0.0'
     },
     env: {
         API_URL: 'http://206.189.53.125',
-        CLIENT_URL: process.env.NODE_ENV !== 'production' ? 'http://localhost:80' : '',
+        CLIENT_URL: process.env.NODE_ENV !== 'production' ? 'http://localhost:8001' : '',
         BASE_API_URL: `${process.env.API_URL}/v1`,
         CLIENT_ID: 'front',
         CLIENT_SECRET: 'ca3f1681c69aa6a63cd64fe6b6bc27bf0cd6bf3ba70f77c4fa1550f06b8312ce'
