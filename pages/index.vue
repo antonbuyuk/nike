@@ -69,7 +69,6 @@
 
 <script>
 import { mapState } from 'vuex';
-import config from '../nuxt.config';
 export default {
     components: {
         BreadCrumbs: () => import('../components/elements/BreadCrumbs'),
@@ -131,7 +130,7 @@ export default {
     },
 
     async fetch ({ app, store, route }) {
-        await store.dispatch('Main/getData', { url: `${config.env.CLIENT_URL}/data/list.json` }).then((data) => {
+        await app.$postRepository.get('list.json').then((data) => {
             store.commit('Main/setData', { label: 'sliderCards', data: data.sliderCards });
             store.commit('Main/setData', { label: 'catalog', data: data.catalog });
         });

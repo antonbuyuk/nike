@@ -22,18 +22,7 @@ const mutations = {
 };
 
 const actions = {
-    getData ({ commit, state }, { url }) {
-        return this.$axios({
-            method: 'GET',
-            url: `${url}`
-        })
-            .then(({ data }) => {
-                return data;
-            })
-            .catch(({ response }) => {
-                console.log(response);
-            });
-    }
+
 };
 
 export default {

@@ -17,6 +17,14 @@ export default {
         Dialogs: () => import('../components/blocks/Dialogs')
     },
 
-    mounted () {}
+    data () {
+        return {
+            loading: true
+        };
+    },
+
+    mounted () {
+        this.loading = false;
+    }
 };
 </script>
