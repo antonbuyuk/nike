@@ -29,6 +29,10 @@ export default {
     height: 1px;
     margin: 5rem 0;
 
+    @include below($md) {
+        margin: 4rem 0;
+    }
+
     &--large {
         margin: 7.5rem 0 8rem;
 

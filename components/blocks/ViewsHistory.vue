@@ -84,7 +84,22 @@ export default {
 
 .view-history {
     position: relative;
-    margin-bottom: 9.5rem;
+
+    @include above(1366px) {
+        margin-bottom: 9.6rem;
+    }
+
+    @include between(1024px, 1365px) {
+        margin-bottom: 8.8rem;
+    }
+
+    @include between(768px, 1023px) {
+        margin-bottom: 7.2rem;
+    }
+
+    @include below(768px) {
+        margin-bottom: 4rem;
+    }
 
     &__header {
         display: flex;

@@ -50,7 +50,7 @@ export default {
 
         @include below($md) {
             width: 100%;
-            margin-bottom: 2rem;
+            margin-bottom: 2.3rem;
         }
 
         &__slide {

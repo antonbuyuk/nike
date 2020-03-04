@@ -146,15 +146,13 @@ export default {
     mounted () {
         setTimeout(() => {
             if (process.client) {
-                this.$nextTick(() => {
-                    const swiperTop = this.$refs.swiperTop.$refs.swiperTop.swiper;
-                    const swiperThumbs = this.$refs.swiperThumbs.$refs.swiperThumbs.swiper;
+                const swiperTop = this.$refs.swiperTop.$refs.swiperTop.swiper;
+                const swiperThumbs = this.$refs.swiperThumbs.$refs.swiperThumbs.swiper;
 
-                    swiperTop.controller.control = swiperThumbs;
-                    swiperThumbs.controller.control = swiperTop;
-                });
+                swiperTop.controller.control = swiperThumbs;
+                swiperThumbs.controller.control = swiperTop;
             }
-        }, 500);
+        }, 750);
     },
 
     methods: {
@@ -257,6 +255,10 @@ export default {
 
         @include above($xl) {
             align-items: flex-start;
+        }
+
+        @include below($md) {
+            margin: 0 auto 3rem;
         }
 
         &__panel {

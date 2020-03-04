@@ -62,10 +62,21 @@ export default {
 .footer {
     position: relative;
     background-color: $gray;
-    padding: 9rem 0 8rem;
 
-    @include below($md) {
-        padding: 6rem 0;
+    @include above(1366px) {
+        padding: 8.8rem 0 8rem;
+    }
+
+    @include between(1024px, 1365px) {
+        padding: 8rem 0 7.2rem;
+    }
+
+    @include between(768px, 1023px) {
+        padding: 7.2rem 0 6.4rem;
+    }
+
+    @include below(768px) {
+        padding: 4rem 0;
     }
 
     &__layout {

@@ -63,6 +63,7 @@ export default {
 @import "../../assets/styles/helpers/mixin";
 
 .radio {
+
     &-group {
         position: relative;
         display: flex;
@@ -72,7 +73,7 @@ export default {
             color: $black;
             font-size: 1.8rem;
             line-height: 2.4rem;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.6rem;
             font-weight: 700;
         }
 

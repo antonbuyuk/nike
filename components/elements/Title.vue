@@ -43,6 +43,10 @@ export default {
         margin-bottom: 2rem;
         position: relative;
         color: $black;
+
+        @include below($md) {
+            margin-bottom: 3.2rem;
+        }
     }
 
     &--h2 {

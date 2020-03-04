@@ -33,6 +33,10 @@ export default {
 .breadcrumbs {
     margin-bottom: 2rem;
 
+    @include below($md) {
+        margin-bottom: 2.5rem;
+    }
+
     &__item {
         display: inline-flex;
         align-items: center;
